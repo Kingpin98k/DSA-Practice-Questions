@@ -1,0 +1,37 @@
+Given a Binary Search Tree. Convert a given BST into a Special Max Heap with the condition that all the values
+in the left subtree of a node should be less than all the values in the right subtree of the node. This condition is
+applied on all the nodes in the so converted Max Heap.
+
+
+class Solution{
+  public:
+  void dfs(Node* root,vector<int>& ans){
+    if(root==NULL){
+        return;
+    }
+    dfs(root->left,ans);
+    ans.push_back(root->data);
+    dfs(root->right,ans);
+}
+void fill(Node*& root,vector<int> ans,int &i){
+    if(root==NULL){
+        return;
+    }
+    fill(root->left,ans,i);
+    fill(root->right,ans,i);
+    root->data = ans[i];
+    i++;
+}
+    void convertToMaxHeapUtil(Node* root)
+    {
+        if(root==NULL){
+            return;
+        }
+         vector<int> ans;
+         dfs(root,ans);
+         int i=0;
+         fill(root,ans,i);
+    }    
+};
+
+// Collect the data of all the elements in inorder, then place the data one by one in postorder.
